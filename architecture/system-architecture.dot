@@ -1,0 +1,24 @@
+digraph G {
+  rankdir=TB;
+  graph [pad="0.2", nodesep="0.35", ranksep="0.55", bgcolor="white"];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12, margin="0.18,0.12", color="#374151", fillcolor="#F8FAFC"];
+  edge [fontname="Arial", fontsize=10, color="#64748B", penwidth=1.2];
+
+  internet [label="INTERNET / GOVERNMENT NETWORK", fillcolor="#E5E7EB"];
+  cloud [label="SAHAKAR CLOUD\n\nDjango ERP APIs\nPostgreSQL\nMoodle / LMS\nCredential Service\nAnalytics\nAI / RAG", fillcolor="#DBEAFE"];
+  ext [label="EXTERNAL / FUTURE INTEGRATIONS\n\nNational Cooperative Database\nDigiLocker\nBhashini\nEmployer Systems", fillcolor="#F3E8FF"];
+  edgebox [label="SAHAKAR EDGE BOX - Raspberry Pi 5\n\nLocal API\nSQLite / Event Store\nLMS Content Cache\nAttendance\nAssessment\nSync Queue\nLocal Wi-Fi", fillcolor="#DCFCE7", penwidth=2];
+  learner [label="TRAINEE\nReact PWA / Flutter", fillcolor="#FEF3C7"];
+  admin [label="TRAINER / INSTITUTE ADMIN\nWeb Console", fillcolor="#FEF3C7"];
+  employer [label="EMPLOYER\nPortal", fillcolor="#FEF3C7"];
+  offline [label="OFFLINE MODE\nEdge Box operates locally\n\nONLINE MODE\nSecure incremental sync to cloud", shape=note, fillcolor="#F1F5F9"];
+
+  internet -> cloud;
+  cloud -> ext [dir=both, label="Approved APIs / integrations"];
+  cloud -> edgebox [dir=both, label="Secure Sync API"];
+  edgebox -> learner;
+  edgebox -> admin;
+  cloud -> admin;
+  cloud -> employer;
+  offline -> edgebox [style=dashed, arrowhead=none];
+}

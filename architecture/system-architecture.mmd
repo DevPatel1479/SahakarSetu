@@ -1,0 +1,21 @@
+flowchart TB
+  Internet[(Internet / Gov Network)]
+  Cloud[SAHAKAR CLOUD\nDjango ERP APIs\nPostgreSQL\nMoodle / LMS\nCredential Service\nAnalytics\nAI/RAG]
+  Integrations[External / Future Integrations\nNCD\nDigiLocker\nBhashini\nEmployers]
+  Edge[SAHAKAR EDGE BOX - Raspberry Pi 5\nLocal API\nSQLite/Event Store\nLMS Content Cache\nAttendance\nAssessment\nSync Queue\nLocal Wi-Fi]
+  Learner[Trainee PWA / Flutter]
+  Admin[Trainer / Institute Admin]
+  Employer[Employer Portal]
+
+  Internet <--> Cloud
+  Cloud <--> Integrations
+  Cloud <--> |Secure Sync API| Edge
+  Edge --> Learner
+  Edge --> Admin
+  Cloud --> Admin
+  Cloud --> Employer
+
+  OfflineNote[OFFLINE MODE: Edge operates locally\nONLINE MODE: Edge syncs to Cloud]:::note
+  OfflineNote -.-> Edge
+
+  classDef note fill:#f7f7f7,stroke:#666,color:#111;
