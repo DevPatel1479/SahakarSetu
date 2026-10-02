@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is([data-theme="dark"] *));
+
+:root {
+  /* Government/Professional Color Palette */
+  --color-primary: #1e3a5f;
+  --color-primary-faint: #e2e8f0;
+  --color-secondary: #0d9488;
+  --color-accent: #f59e0b;
+  
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f5f9;
+  --color-surface-3: #e2e8f0;
+  
+  --color-text: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+  
+  --color-border: #e2e8f0;
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+[data-theme="dark"] {
+  --color-primary: #3b82f6;
+  --color-primary-faint: #1e3a8a;
+  --color-secondary: #14b8a6;
+  
+  --color-bg: #0d1117;
+  --color-surface: #161b22;
+  --color-surface-2: #21262d;
+  --color-surface-3: #30363d;
+  
+  --color-text: #c9d1d9;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  
+  --color-border: #30363d;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+.gov-header-stripe {
+  height: 6px;
+  background: linear-gradient(to right, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+}
+
+.sidebar-link {
+  transition: all 0.2s;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-surface-2);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
