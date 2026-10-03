@@ -19,10 +19,11 @@ import {
   Network,
   CreditCard,
   Sparkles,
-  UserCheck
+  UserCheck,
+  X
 } from 'lucide-react';
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { user } = useAuthStore();
   const role = user?.role || 'ncct_admin';
 
@@ -53,50 +54,75 @@ export default function Sidebar() {
   const filteredMenu = menuConfig.filter(item => item.roles.includes(role));
 
   return (
-    <div className="w-64 flex-shrink-0 bg-[#1e3a5f] text-white flex flex-col h-full shadow-xl">
-      <div className="h-16 flex items-center px-6 bg-[#152a45]">
-        <h1 className="text-xl font-extrabold tracking-wider text-white">SahakarSetu</h1>
-      </div>
-      
-      <div className="p-4 bg-[#152a45]/50 border-b border-[#1e3a5f]">
-        <p className="text-[10px] text-green-400 uppercase tracking-wider font-bold mb-1">
-          Demo Environment
-        </p>
-        <p className="text-sm font-medium text-blue-100">{user?.name || 'Admin User'}</p>
-        <p className="text-xs text-blue-300 capitalize">{role.replace('_', ' ')}</p>
-      </div>
+    <>
+      {/* Mobile Overlay Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
 
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
-        {filteredMenu.map((item) => {
-          const Icon = item.icon;
-          return (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
-                  isActive
-                    ? 'bg-blue-800 text-white shadow-sm'
-                    : 'text-blue-100 hover:bg-blue-800/50 hover:text-white'
-                }`
-              }
-            >
-              <Icon className="mr-3 h-5 w-5 flex-shrink-0 opacity-80" aria-hidden="true" />
-              {item.name}
-            </NavLink>
-          );
-        })}
-      </nav>
-      
-      <div className="p-4 border-t border-blue-800/50 bg-[#152a45]/30">
-        <div className="text-xs text-blue-300/60 font-medium">
-          SahakarSetu<br/>
-          National Portal
+      {/* Sidebar Panel */}
+      <div
+        className={`
+          fixed top-0 left-0 h-full z-30 w-64 flex-shrink-0 bg-[#1e3a5f] text-white flex flex-col shadow-xl
+          transform transition-transform duration-300 ease-in-out
+          lg:static lg:translate-x-0 lg:z-auto
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+        <div className="h-16 flex items-center justify-between px-6 bg-[#152a45]">
+          <h1 className="text-xl font-extrabold tracking-wider text-white">SahakarSetu</h1>
+          {/* Close button visible only on mobile */}
+          <button
+            onClick={onClose}
+            className="lg:hidden p-1.5 rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="Close sidebar"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        
+        <div className="p-4 bg-[#152a45]/50 border-b border-[#1e3a5f]">
+          <p className="text-[10px] text-green-400 uppercase tracking-wider font-bold mb-1">
+            Demo Environment
+          </p>
+          <p className="text-sm font-medium text-blue-100">{user?.name || 'Admin User'}</p>
+          <p className="text-xs text-blue-300 capitalize">{role.replace('_', ' ')}</p>
+        </div>
+
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+          {filteredMenu.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                    isActive
+                      ? 'bg-blue-800 text-white shadow-sm'
+                      : 'text-blue-100 hover:bg-blue-800/50 hover:text-white'
+                  }`
+                }
+              >
+                <Icon className="mr-3 h-5 w-5 flex-shrink-0 opacity-80" aria-hidden="true" />
+                {item.name}
+              </NavLink>
+            );
+          })}
+        </nav>
+        
+        <div className="p-4 border-t border-blue-800/50 bg-[#152a45]/30">
+          <div className="text-xs text-blue-300/60 font-medium">
+            SahakarSetu<br/>
+            National Portal
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-
-
-

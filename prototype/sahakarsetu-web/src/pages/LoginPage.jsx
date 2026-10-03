@@ -87,7 +87,7 @@ export default function LoginPage() {
 
           <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
             <p className="text-xs text-center text-gray-500 mb-3 font-bold uppercase tracking-wider">Quick Role Switch</p>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
               <button onClick={() => handleQuickLogin('ncct_admin')} className="py-2 text-[11px] font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors border border-blue-200 text-center">NCCT</button>
               <button onClick={() => handleQuickLogin('institute_admin')} className="py-2 text-[11px] font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors border border-indigo-200 text-center">Institute</button>
               <button onClick={() => handleQuickLogin('trainer')} className="py-2 text-[11px] font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 rounded-xl transition-colors border border-amber-200 text-center">Trainer</button>
