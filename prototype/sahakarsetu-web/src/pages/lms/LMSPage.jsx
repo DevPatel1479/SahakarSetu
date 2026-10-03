@@ -24,7 +24,8 @@ import {
   RotateCcw,
   Globe,
   Video,
-  FileText
+  FileText,
+  XCircle
 } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEdgeStore, useAuthStore } from '../../store';
@@ -290,7 +291,12 @@ export default function LMSPage() {
   };
 
   const currentCurriculum = curricula[selectedProgId] || curricula['PROG001'];
-  const cutoffScore = currentProg.cutoff_score || currentCurriculum.cutoff_score || 75;
+  const cutoffScore = currentProg.cutoff_score || currentCurriculum?.cutoff_score || 75;
+
+  const activeExamQuestions = 
+    (currentCurriculum?.examQuestions && currentCurriculum.examQuestions.length > 0)
+      ? currentCurriculum.examQuestions
+      : (PROGRAMME_CURRICULA[selectedProgId]?.examQuestions || PROGRAMME_CURRICULA.DEFAULT?.examQuestions || PROGRAMME_CURRICULA.PROG001.examQuestions);
 
   // IF TRAINER: Render the Instructor LMS Studio!
   if (isTrainer) {
@@ -355,7 +361,8 @@ export default function LMSPage() {
   // STRICT CUTOFF EVALUATION & DYNAMIC CERTIFICATE GENERATION
   const handleFinalExamSubmit = async (e) => {
     e.preventDefault();
-    const questions = currentCurriculum.examQuestions;
+    const questions = activeExamQuestions;
+    if (!questions || questions.length === 0) return;
     let earnedPoints = 0;
     const pointsPerQuestion = 100 / questions.length;
 
@@ -869,17 +876,16 @@ export default function LMSPage() {
                   : `${modules.length - completedCount} module(s) remaining for automated exam eligibility.`}
               </p>
 
-              {progressPct === 100 && (
-                <button
-                  onClick={() => {
-                    setShowFinalExamModal(true);
-                    setFinalExamSubmitted(false);
-                  }}
-                  className="w-full mt-2 py-2.5 bg-[#1e3a5f] hover:bg-[#152a45] text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm"
-                >
-                  <Award size={14} className="text-[#c17f24]" /> Take Final Certification Exam
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  setShowFinalExamModal(true);
+                  setFinalExamSubmitted(false);
+                }}
+                className="w-full mt-2 py-2.5 bg-[#1e3a5f] hover:bg-[#152a45] text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+              >
+                <Award size={14} className="text-[#c17f24]" /> 
+                {progressPct === 100 ? 'Take Final Certification Exam' : 'Submit for Certificate (Final Exam)'}
+              </button>
             </div>
 
             <div className="flex justify-between items-center text-xs px-2 pt-1 text-gray-500">
@@ -1157,7 +1163,7 @@ export default function LMSPage() {
                 </div>
 
                 {/* Dynamic Questions for the Active Programme */}
-                {currentCurriculum.examQuestions.map((q, idx) => (
+                {activeExamQuestions.map((q, idx) => (
                   <div key={q.id} className="space-y-2">
                     <p className="font-bold text-gray-900 text-sm">
                       {q.prompt}
@@ -1169,6 +1175,7 @@ export default function LMSPage() {
                             type="radio"
                             name={`exam_${q.id}`}
                             value={opt.value}
+                            checked={finalExamAnswers[q.id] === opt.value}
                             onChange={(e) => setFinalExamAnswers({ ...finalExamAnswers, [q.id]: e.target.value })}
                             required
                           />
@@ -1189,9 +1196,9 @@ export default function LMSPage() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-3 bg-[#1e3a5f] hover:bg-[#152a45] text-white font-bold rounded-xl shadow-md transition-colors"
+                    className="flex-1 py-3 bg-[#1e3a5f] hover:bg-[#152a45] text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
                   >
-                    Submit Assessment for Evaluation
+                    <Award size={16} /> Submit for Certificate
                   </button>
                 </div>
               </form>

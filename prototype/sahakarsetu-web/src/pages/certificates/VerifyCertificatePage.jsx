@@ -18,21 +18,25 @@ export default function VerifyCertificatePage() {
       const cleanId = lookupId.trim();
       
       // 1. First attempt direct certificate lookup (e.g. CERT-2026-001847)
-      let response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/certificates/${cleanId}/`);
-      if (response.ok) {
-        const data = await response.json();
-        setCert(data);
-        return;
-      }
-
-      // 2. If lookupId is a Sahakar ID (e.g. SAH-2026-000001) or direct lookup failed, check by trainee ID
-      response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/certificates/?trainee=${encodeURIComponent(cleanId)}`);
-      if (response.ok) {
-        const list = await response.json();
-        if (list && list.length > 0) {
-          setCert(list[0]);
+      try {
+        let response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/certificates/${cleanId}/`);
+        if (response.ok) {
+          const data = await response.json();
+          setCert(data);
           return;
         }
+
+        // 2. If lookupId is a Sahakar ID (e.g. SAH-2026-000001) or direct lookup failed, check by trainee ID
+        response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/certificates/?trainee=${encodeURIComponent(cleanId)}`);
+        if (response.ok) {
+          const list = await response.json();
+          if (list && list.length > 0) {
+            setCert(list[0]);
+            return;
+          }
+        }
+      } catch (netErr) {
+        console.warn('Network certificate lookup notice:', netErr);
       }
 
       // 3. Check local storage cache for dynamically generated certificates
