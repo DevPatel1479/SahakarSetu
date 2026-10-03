@@ -3,7 +3,23 @@ import { useEdgeStore } from '../../store';
 import { Server, Wifi, WifiOff, HardDrive, RefreshCw, Activity, AlertTriangle, CloudRain, Database } from 'lucide-react';
 
 export default function EdgeBoxPage() {
-  const { isOnline, pendingSyncQueue, syncHistory, toggleConnection, triggerOfflineEvent, syncNow } = useEdgeStore();
+  const { 
+    isOnline, 
+    pendingSyncQueue, 
+    syncHistory, 
+    toggleConnection, 
+    triggerOfflineEvent, 
+    syncNow,
+    isSyncing,
+    lastSyncMessage,
+    fetchCloudHistory 
+  } = useEdgeStore();
+
+  React.useEffect(() => {
+    if (fetchCloudHistory) {
+      fetchCloudHistory();
+    }
+  }, []);
 
   const handleSimulateEvent = () => {
     const events = ['SYNC_ATTENDANCE', 'OFFLINE_REGISTRATION', 'COURSE_PROGRESS_UPDATE'];
@@ -92,18 +108,27 @@ export default function EdgeBoxPage() {
               <p className="text-gray-500 mt-2 font-medium">Pending Actions to Sync to Django Backend</p>
             </div>
           </div>
-          <button 
-            onClick={syncNow}
-            disabled={!isOnline || pendingSyncQueue.length === 0}
-            className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-sm ${
-              !isOnline || pendingSyncQueue.length === 0 
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                : 'bg-[#2d7a3f] text-white hover:bg-green-700 hover:shadow-md'
-            }`}
-          >
-            <RefreshCw size={18} className={isOnline && pendingSyncQueue.some(q => q.status === 'syncing') ? 'animate-spin' : ''} /> 
-            Push to Django Cloud
-          </button>
+          <div>
+            <button 
+              onClick={syncNow}
+              disabled={!isOnline || isSyncing}
+              className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-sm ${
+                !isOnline 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : isSyncing
+                  ? 'bg-green-600 text-white cursor-wait opacity-90'
+                  : 'bg-[#2d7a3f] text-white hover:bg-green-700 hover:shadow-md cursor-pointer'
+              }`}
+            >
+              <RefreshCw size={18} className={isSyncing || pendingSyncQueue.some(q => q.status === 'syncing') ? 'animate-spin' : ''} /> 
+              {isSyncing ? 'Syncing to Django Cloud...' : 'Push to Django Cloud'}
+            </button>
+            {lastSyncMessage && (
+              <div className="mt-2.5 p-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-lg text-center flex items-center justify-center gap-1.5 animate-in fade-in">
+                <span>✓</span> {lastSyncMessage}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -174,7 +199,7 @@ export default function EdgeBoxPage() {
                   {syncHistory.map((item, idx) => (
                     <tr key={idx} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
-                        {new Date(item.syncedAt).toLocaleTimeString()}
+                        {new Date(item.syncedAt || item.timestamp || Date.now()).toLocaleTimeString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1e3a5f]">
                         {item.event_type}
