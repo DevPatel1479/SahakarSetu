@@ -1,19 +1,15 @@
-# External Submission Links - SahakarSetu
+# Project Resource & Deployment Links - SahakarSetu
 
-Put these links on the SIH presentation technical approach slide and in the GitHub README.
+**Smart India Hackathon 2026 | Problem Statement ID: 26087**  
+**AI & LMS-Enabled Cooperative Capacity Building, ERP & Employment Ecosystem**  
 
-## Primary links
+---
 
-- **Technical Architecture Report:** `https://github.com/<org-or-user>/<repo>/blob/main/docs/TECHNICAL_ARCHITECTURE.md`
-- **GitHub Repository:** `https://github.com/<org-or-user>/<repo>`
-- **Prototype Demo Video:** `https://youtube.com/<video-id>`
-- **Live Prototype:** `https://<your-demo-domain>`
-- **Presentation PDF/PPT:** `https://github.com/<org-or-user>/<repo>/blob/main/submission/SahakarSetu_SIH2026_Final.pdf`
+## Primary Project References
 
-## Recommended text on PPT
-
-**Technical Architecture & Prototype Evidence -> GitHub**
-
-`github.com/<org-or-user>/<repo>/tree/main/docs`
-
-Keep the visible PPT text short; use a clickable hyperlink in PowerPoint rather than printing a long raw URL.
+- **GitHub Repository:** `https://github.com/DevPatel1479/SahakarSetu`
+- **Technical Architecture Report:** `https://github.com/DevPatel1479/SahakarSetu/blob/main/docs/TECHNICAL_ARCHITECTURE.md`
+- **Technical Report (PDF):** `https://github.com/DevPatel1479/SahakarSetu/blob/main/report/SahakarSetu_Technical_Architecture_Report.pdf`
+- **Technical Report (DOCX):** `https://github.com/DevPatel1479/SahakarSetu/blob/main/report/SahakarSetu_Technical_Architecture_Report.docx`
+- **Live Deployed Prototype:** `https://sahakarsetu.vercel.app`
+- **Backend API Endpoint:** `https://sahakarsetu-mcdr.onrender.com`
