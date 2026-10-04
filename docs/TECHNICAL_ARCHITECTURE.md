@@ -18,7 +18,7 @@
 
 ## 1. Executive Summary & System Vision
 
-**SahakarSetu** is an scalable digital ecosystem designed to modernize and unify the cooperative education, administration, and employment ecosystem across India. SahakarSetu is a proposed digital ecosystem designed to support the cooperative training ecosystem under NCCT and the Ministry of Cooperation. the platform integrates institutional enterprise resource planning (ERP), learning management systems (LMS), computer-vision attendance, offline-first edge computing, verifiable cryptographic skill credentialing, and AI-driven employment linkage into a continuous, data-driven lifecycle.
+**SahakarSetu** is a scalable digital ecosystem designed to modernize and unify the cooperative education, administration, and employment ecosystem across India. It is a proposed solution designed to support the cooperative training ecosystem under NCCT and the Ministry of Cooperation. The platform integrates institutional enterprise resource planning (ERP), learning management systems (LMS), computer-vision attendance, offline-first edge computing, verifiable cryptographic skill credentialing, and AI-driven employment linkage into a continuous, data-driven lifecycle.
 
 NCCT operates through its apex institution—Vaikunth Mehta National Institute of Cooperative Management (VAMNICOM), Pune—alongside 5 Regional Institutes of Cooperative Management (RICMs) and 14 Institutes of Cooperative Management (ICMs). In total, these 20 institutions conduct more than 3,700 programmes annually, training over 2.27 lakh participants comprising Primary Agricultural Credit Societies (PACS) secretaries, dairy cooperative staff, women Self-Help Groups (SHGs), cooperative bank officers, and rural youth.
 
@@ -39,7 +39,7 @@ Historically, this vast educational apparatus has operated through manual or sil
        +-----------------------------------------------------------------------+
 ```
 
-SahakarSetu bridges the critical rural infrastructure gap through a hybrid **Software + Hardware** architecture. The core innovation is the **Sahakar Edge Box**—a low-cost, ruggedized, low-power edge computer deployed at each training institute, PACS center, and rural cooperative hub. The Edge Box runs an embedded micro-cloud with localized LMS media caching, biometric face/QR attendance validation, automated quiz grading, and a store-and-forward SQLite journal. Trainees in remote, low-bandwidth areas connect locally via Wi-Fi without active internet. When connectivity is restored, the Edge Box cryptographically synchronizes with the central Sahakar Cloud, enabling zero-downtime operations and national-level training monitoring.
+SahakarSetu bridges the critical rural infrastructure gap through a hybrid **Software + Hardware** architecture. The core innovation is the **Sahakar Edge Box**—a low-cost, ruggedized, low-power edge computer deployed at each training institute, PACS center, and rural cooperative hub. The Edge Box runs an embedded micro-cloud with localized LMS media caching, biometric face/QR attendance validation, automated quiz grading, and a store-and-forward SQLite journal. Trainees in remote, low-bandwidth areas connect locally via Wi-Fi without active internet. When connectivity is restored, the Edge Box cryptographically synchronizes with the central Sahakar Cloud, enabling continuity of local training operations and national-level training monitoring.
 
 ---
 
@@ -187,7 +187,7 @@ The Edge Box is engineered with commercial off-the-shelf (COTS) industrial compo
 |---|---|---|---|---|
 | 1 | **Single Board Computer** | Raspberry Pi 5 (8GB LPDDR4X) | Quad-core ARM Cortex-A76 @ 2.4GHz; 8GB RAM | Core edge compute node | ₹8,500 |
 | 2 | **Active Cooling & Enclosure** | Aluminum Heatsink + PWM Fan + ABS Case | Ruggedized industrial casing with heat dissipation | Hardware protection | ₹1,200 |
-| 3 | **High-Speed Storage** | PCIe NVMe M.2 SSD (256 GB) via M.2 HAT | 256 GB PCIe NVMe SSD via M.2 HAT  high-speed local storage for offline LMS media and SQLite journal. | Offline video cache & SQLite | ₹3,200 |
+| 3 | **High-Speed Storage** | 256 GB PCIe NVMe SSD via M.2 HAT | High-speed local storage for offline LMS media and SQLite journal | Offline video cache & SQLite | ₹3,200 |
 | 4 | **Networking** | Dual-Band Wi-Fi 5 (802.11ac) + Gigabit Ethernet | 2.4/5.0 GHz Access Point (up to 60 concurrent clients) | Local trainee wireless portal | Built-in |
 | 5 | **Real-Time Clock (RTC)** | I2C DS3231 RTC Module with battery backup | High precision TCXO RTC with coin cell | Offline timestamp integrity | ₹350 |
 | 6 | **Power Resilience** | 5V/5A USB-C PD Adapter + Mini 18650 UPS | 10,000 mAh battery buffer (4-6 hours backup) | Uninterrupted power operation | ₹2,800 |
@@ -208,7 +208,7 @@ The Edge Box is engineered with commercial off-the-shelf (COTS) industrial compo
 ### 6.1 Identity Structure
 Every participant entering the NCCT training ecosystem receives a lifetime unique digital identity called the **Sahakar ID**. This replaces ad-hoc local register serials with a standardized, verifiable identifier across all 20 institutes.
 
-$$\text{Sahakar ID Format: } \mathbf{SAH - [YYYY] - [INST\_CODE] - [SERIAL\_NUMBER]}$$
+**Sahakar ID Format:** `SAH-[YYYY]-[INST_CODE]-[SERIAL_NUMBER]`
 *Example:* `SAH-2026-VAM01-001847` (Trainee registered in 2026 at VAMNICOM Pune, Serial #1847).
 
 ### 6.2 Data Model & Linkage
@@ -245,9 +245,8 @@ To eliminate attendance fraud, proxy check-ins, and manual paperwork, SahakarSet
 
 ### 7.1 Mode A: ArcFace Computer Vision with Liveness Detection
 - **Liveness Screening:** Prior to feature extraction, frames are analyzed by **MiniFASNet**, an ultra-lightweight convolutional network that detects printed paper attacks, tablet replays, and silicone masks by computing micro-surface reflectance and eye-blink frequency.
-- **Biometric Vector Extraction:** Faces passing liveness are processed by an **ArcFace (Additive Angular Margin Loss)** neural network, converting the face image into a compact 512-dimensional floating-point embedding:
-  ArcFace converts a validated face image into a compact 512-dimensional embedding for identity matching.
-- **Privacy Preservation (DPDP Compliance):** Raw photographs are discarded immediately from memory after embedding generation. Only the non-reversible 512-dimensional numerical vector is stored, encrypted using AES-256.
+- **Biometric Vector Extraction:** Faces passing liveness are processed by an **ArcFace (Additive Angular Margin Loss)** neural network. ArcFace converts a validated face image into a compact 512-dimensional embedding for identity matching.
+- **Privacy Preservation (DPDP-Aligned):** Raw photographs are discarded immediately from memory after embedding generation. Only the non-reversible 512-dimensional numerical vector is stored, encrypted using AES-256.
 
 ### 7.2 Mode B: Rotating Cryptographic QR Code
 For high-density classrooms (60+ trainees entering simultaneously in a 5-minute window), the instructor's terminal renders a rotating QR code updated every 30 seconds.
@@ -371,7 +370,7 @@ The matching engine takes candidate Skill Passports and recruiter job postings, 
 Trainees seeking career guidance or PACS operational advice interact with an AI Assistant powered by a **Retrieval-Augmented Generation (RAG)** pipeline:
 1. **Curated Document Corpus:** Ingests official documentation including the National Cooperation Policy 2025, Model Bye-laws for PACS, RBI guidelines for Rural Cooperative Banks, NCCT curriculum handbooks, and government subsidy schemes (NABARD, NCDC).
 2. **Vector Embeddings & Storage:** Text chunks (512 tokens with 10% overlap) are embedded using `text-embedding-3-small` / open multilingual embeddings and indexed into PostgreSQL using `pgvector` with HNSW (Hierarchical Navigable Small World) indexing.
-3. **Grounded Generation with Guardrails:** When a user queries: *"PACS secretary eligibility criteria kya hai?"*, the RAG pipeline retrieves the top-5 relevant sections and synthesizes an authoritative, grounded responses with citations to retrieved official documents and application-level guardrails. with explicit citations to official Ministry documents.
+3. **Grounded Generation with Guardrails:** When a user queries: *"PACS secretary eligibility criteria kya hai?"*, the RAG pipeline retrieves the top-5 relevant sections and synthesizes grounded responses with citations to retrieved official documents and application-level guardrails.
 
 ---
 
@@ -489,7 +488,7 @@ The system undergoes rigorous end-to-end verification across simulated field con
 ### 18.1 Feasibility Assessment
 - **Technical Feasibility:** Built on proven, open-source industrial frameworks (React 19, Django, PostgreSQL, Raspberry Pi 5, Moodle Core, InsightFace). The hardware footprint is standardized, lightweight, and requires no specialized proprietary tooling.
 - **Operational Feasibility:** Aligned directly with NCCT's existing hierarchy (1 National Apex Institute + 5 Regional Institutes + 14 State Institutes). Institutes possess existing computer laboratories and classrooms capable of immediately hosting Edge Box nodes.
-- **Economic Feasibility:** The estimated hardware cost of ~₹19,450 per Edge Box allows deployment across all 20 NCCT institutions for less than ₹4.5 Lakhs capital expenditure, delivering immediate annual savings in administrative stationery, paper registers, and travel logistics.
+- **Economic Feasibility:** Indicative deployment cost is approximately ₹25,000 per Sahakar Edge Box and ₹15,000 per face/attendance terminal. Final deployment cost will vary based on device configuration, procurement scale and site requirements.
 
 ### 18.2 Phased Rollout Plan
 ```
