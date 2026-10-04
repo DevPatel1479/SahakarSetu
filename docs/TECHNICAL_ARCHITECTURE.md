@@ -18,7 +18,7 @@
 
 ## 1. Executive Summary & System Vision
 
-**SahakarSetu** is an enterprise-grade digital public infrastructure designed to modernize and unify the cooperative education, administration, and employment ecosystem across India. Commissioned under the mandate of the Ministry of Cooperation and the National Council for Cooperative Training (NCCT), the platform integrates institutional enterprise resource planning (ERP), learning management systems (LMS), computer-vision attendance, offline-first edge computing, verifiable cryptographic skill credentialing, and AI-driven employment linkage into a continuous, data-driven lifecycle.
+**SahakarSetu** is an scalable digital ecosystem designed to modernize and unify the cooperative education, administration, and employment ecosystem across India. SahakarSetu is a proposed digital ecosystem designed to support the cooperative training ecosystem under NCCT and the Ministry of Cooperation. the platform integrates institutional enterprise resource planning (ERP), learning management systems (LMS), computer-vision attendance, offline-first edge computing, verifiable cryptographic skill credentialing, and AI-driven employment linkage into a continuous, data-driven lifecycle.
 
 NCCT operates through its apex institution—Vaikunth Mehta National Institute of Cooperative Management (VAMNICOM), Pune—alongside 5 Regional Institutes of Cooperative Management (RICMs) and 14 Institutes of Cooperative Management (ICMs). In total, these 20 institutions conduct more than 3,700 programmes annually, training over 2.27 lakh participants comprising Primary Agricultural Credit Societies (PACS) secretaries, dairy cooperative staff, women Self-Help Groups (SHGs), cooperative bank officers, and rural youth.
 
@@ -75,12 +75,12 @@ The table below demonstrates direct, full-scope alignment with the technical req
 |---|---|---|---|
 | 1 | **Online Registration & Nomination** | Web-based nomination portal supporting self-registration, society sponsorship, and institute bulk approvals. | React 19 PWA, Django REST APIs, automated eligibility screening. |
 | 2 | **Participant, Institution & Trainee Profiles** | Centralized national registry issuing a unique, immutable lifetime digital **Sahakar ID**. | PostgreSQL central ledger, cryptographic format `SAH-YYYY-INST-XXXXXX`. |
-| 3 | **Interactive Multilingual E-Learning** | SCORM-compliant LMS with video lectures, interactive modules, and regional voice narration. | Moodle LMS Core integration + Government **BHASHINI** AI speech/translation API. |
-| 4 | **Digital Attendance (Face / QR)** | Dual-mode attendance engine: on-device ArcFace recognition with liveness check, plus rotating cryptographic QR fallback. | InsightFace / MiniFASNet embeddings + time-based HMAC dynamic QR codes. |
+| 3 | **Interactive Multilingual E-Learning** | SCORM-compliant LMS with video lectures, interactive modules, and regional voice narration. | Proposed Moodle LMS Core integration + Proposed Government **BHASHINI** AI speech/translation API. |
+| 4 | **Digital Attendance (Face / QR)** | Dual-mode attendance engine: on-device ArcFace recognition with liveness check, plus rotating cryptographic QR fallback. | Proposed InsightFace / MiniFASNet embeddings + time-based HMAC dynamic QR codes. |
 | 5 | **Timetable, Hostel & Logistics Management** | Campus ERP module managing classroom scheduling, faculty allocation, hostel room beds, and training kit dispatches. | Relational allocation engine with conflict resolution and GPS-tagged logistics. |
 | 6 | **LMS Integration, Assessment & Certification** | Automated module quizzes, proctored summative exams, rubric-based grading, and instant certificate issuing. | LMS evaluation pipeline enforcing customizable cutoff score benchmarks. |
-| 7 | **Skill Certification Repository & Verification** | Digital Skill Passport with tamper-evident cryptographic signature and instant public QR code lookup. | HMAC-SHA256 / Ed25519 signed credentials, public verification endpoint. |
-| 8 | **Career Counseling Chatbot** | AI knowledge assistant providing guidance on cooperative schemes, bye-laws, and career paths. | Retrieval-Augmented Generation (RAG) using LangChain / pgvector over NCCT docs. |
+| 7 | **Skill Certification Repository & Verification** | Digital Skill Passport with tamper-evident cryptographic signature and instant public QR code lookup. | Ed25519 digitally signed credentials with public-key verification, public verification endpoint. |
+| 8 | **Career Counseling Chatbot** | AI knowledge assistant providing guidance on cooperative schemes, bye-laws, and career paths. | Proposed Retrieval-Augmented Generation (RAG) using LangChain / pgvector over NCCT docs. |
 | 9 | **Employer & Recruiter Dashboard** | Dedicated recruiter portal for posting vacancies, filtering certified candidates, and reviewing Skill Passports. | Cooperative recruitment hub with automated candidate pipeline management. |
 | 10 | **Mobile-Friendly & Offline-Accessible Platform** | Mobile-responsive PWA backed by the **Sahakar Edge Box** for zero-connectivity classrooms. | React PWA + Raspberry Pi 5 local Wi-Fi micro-cloud with store-and-forward sync. |
 | 11 | **Centralized Database & Monitoring Analytics** | Real-time national intelligence center tracking mobilization, certification, sync rates, and placements. | Recharts analytics engine fed by central PostgreSQL event warehouse. |
@@ -90,7 +90,7 @@ The table below demonstrates direct, full-scope alignment with the technical req
 ## 4. End-to-End System Architecture
 
 ### 4.1 Architectural Blueprint
-SahakarSetu is built on a resilient, multi-tiered micro-cloud architecture designed for high throughput, offline durability, and zero single-point-of-failure operation:
+SahakarSetu is built on a resilient, multi-tiered micro-cloud architecture designed for high throughput, offline durability, and resilient, offline-capable architecture that allows local training operations to continue during network/cloud outages:
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -187,16 +187,16 @@ The Edge Box is engineered with commercial off-the-shelf (COTS) industrial compo
 |---|---|---|---|---|
 | 1 | **Single Board Computer** | Raspberry Pi 5 (8GB LPDDR4X) | Quad-core ARM Cortex-A76 @ 2.4GHz; 8GB RAM | Core edge compute node | ₹8,500 |
 | 2 | **Active Cooling & Enclosure** | Aluminum Heatsink + PWM Fan + ABS Case | Ruggedized industrial casing with heat dissipation | Hardware protection | ₹1,200 |
-| 3 | **High-Speed Storage** | PCIe NVMe M.2 SSD (256 GB) via M.2 HAT | Read speeds > 800 MB/s, High endurance | Offline video cache & SQLite | ₹3,200 |
+| 3 | **High-Speed Storage** | PCIe NVMe M.2 SSD (256 GB) via M.2 HAT | 256 GB PCIe NVMe SSD via M.2 HAT  high-speed local storage for offline LMS media and SQLite journal. | Offline video cache & SQLite | ₹3,200 |
 | 4 | **Networking** | Dual-Band Wi-Fi 5 (802.11ac) + Gigabit Ethernet | 2.4/5.0 GHz Access Point (up to 60 concurrent clients) | Local trainee wireless portal | Built-in |
 | 5 | **Real-Time Clock (RTC)** | I2C DS3231 RTC Module with battery backup | High precision TCXO RTC with coin cell | Offline timestamp integrity | ₹350 |
 | 6 | **Power Resilience** | 5V/5A USB-C PD Adapter + Mini 18650 UPS | 10,000 mAh battery buffer (4-6 hours backup) | Uninterrupted power operation | ₹2,800 |
 | 7 | **Biometric / QR Camera Kiosk** | 5MP Wide-Angle Camera + Rotating Stand | 1080p @ 30fps with autofocus and LED ring | Attendance face/QR terminal | ₹3,400 |
-| **Total** | **Complete Sahakar Edge Box Unit** | **Ruggedized Plug-and-Play Assembly** | **Autonomous Rural Training Node** | **~₹19,450** |
+| **Total** | **Indicative deployment cost: Sahakar Edge Box = ~25,000; face/attendance terminal = ~15,000 per unit. Final cost varies with deployment configuration and procurement scale.** |
 
 ### 5.3 Offline Synchronization & Collision Resolution
 1. **Idempotency Guarantee:** Every action occurring offline is assigned a cryptographically unique identifier at origin:
-   $$\text{Event ID} = \text{UUIDv4} \parallel \text{Timestamp} \parallel \text{DeviceID}$$
+   Event ID = UUIDv4 + Timestamp + Device ID
 2. **Ordered Event Processing:** Events are written to an append-only SQLite transaction table with statuses: `pending`, `syncing`, `synced`, `conflict`.
 3. **Dynamic Reconnection Worker:** A background daemon constantly monitors network health by pinging `https://sahakarsetu-mcdr.onrender.com/health/`. Upon ping acknowledgement, the worker dispatches batches of 50 events using HTTP POST to `/api/sync-events/`.
 4. **Collision Handling:** If an attendance record or enrollment action was processed independently on both cloud and edge, the central server applies the *Latest Valid Cryptographic Signature (LVCS)* rule, preserving data integrity without human intervention.
@@ -233,7 +233,7 @@ To eliminate attendance fraud, proxy check-ins, and manual paperwork, SahakarSet
 |  PRIMARY: Computer Vision Face Attendance                                         |
 |  [ Camera Capture ] ---> [ MiniFASNet Liveness ] ---> [ ArcFace 512-D Vector ]   |
 |                          Checks blink, texture,        Cosine distance match with |
-|                          depth (prevents spoofing)     enrolled template (< 0.40) |
+|                          depth (prevents spoofing)     enrolled template using a calibrated similarity threshold determined during validation |
 |                                                                    |              
 |                                                                    v              
 |  SECONDARY: Dynamic Cryptographic QR Code (Fallback)       [ Mark Attendance ]    
@@ -246,7 +246,7 @@ To eliminate attendance fraud, proxy check-ins, and manual paperwork, SahakarSet
 ### 7.1 Mode A: ArcFace Computer Vision with Liveness Detection
 - **Liveness Screening:** Prior to feature extraction, frames are analyzed by **MiniFASNet**, an ultra-lightweight convolutional network that detects printed paper attacks, tablet replays, and silicone masks by computing micro-surface reflectance and eye-blink frequency.
 - **Biometric Vector Extraction:** Faces passing liveness are processed by an **ArcFace (Additive Angular Margin Loss)** neural network, converting the face image into a compact 512-dimensional floating-point embedding:
-  $$L_{\text{ArcFace}} = -\log \frac{e^{s(\cos(\theta_{y_i} + m))}}{e^{s(\cos(\theta_{y_i} + m))} + \sum_{j \neq y_i} e^{s \cos \theta_j}}$$
+  ArcFace converts a validated face image into a compact 512-dimensional embedding for identity matching.
 - **Privacy Preservation (DPDP Compliance):** Raw photographs are discarded immediately from memory after embedding generation. Only the non-reversible 512-dimensional numerical vector is stored, encrypted using AES-256.
 
 ### 7.2 Mode B: Rotating Cryptographic QR Code
@@ -293,7 +293,7 @@ To ensure accessibility for rural cooperative members, PACS committee representa
 ```
 
 - **Voice-First Navigation:** Semi-literate trainees can touch the microphone button and ask questions such as: *"माझं हजेरी आणि प्रमाणपत्र कधी मिळेल?"* (When will my attendance and certificate be generated?); the system processes the request in Marathi and provides both visual and voice responses.
-- **Multilingual Content Dubbing:** Course transcripts and study materials are translated across 12 scheduled Indian languages, democratizing access to technical PACS accounting rules and statutory audit requirements.
+- **Multilingual Content Dubbing:** Course transcripts and study materials can be extended to additional Indian languages through BHASHINI services, democratizing access to technical PACS accounting rules and statutory audit requirements.
 
 ---
 
@@ -317,14 +317,14 @@ Upon successful completion of an accredited training programme (satisfying both 
 |   |  [x] Statutory Cooperative Audit & NPA Classification (Score: 82%)        |   |
 |   |  [x] Cold Storage & Agri-Inventory Management (Score: 78%)                |   |
 |   +---------------------------------------------------------------------------+   |
-|   |  Cryptographic Signature: HMAC-SHA256(Record + PrivateKey)                |   |
+|   |  Cryptographic Signature: Ed25519(Signing Private Key, Certificate Payload)                |   |
 |   |  Public Verification QR: https://sahakar-setu-sage.vercel.app/verify/CERT-1847      |   |
 |   +---------------------------------------------------------------------------+   |
 +-----------------------------------------------------------------------------------+
 ```
 
 ### 10.2 Cryptographic Verification Pipeline
-1. **Signature Generation:** The certificate payload (Trainee ID, Institute ID, Programme ID, Issued Date, Grade, Competency Hashes) is signed using an HMAC-SHA256 signature with the central NCCT private key.
+1. **Signature Generation:** Certificate payloads are digitally signed using the issuer's Ed25519 private key. Verifiers validate the signature using the corresponding public key.
 2. **Dynamic QR Code:** The certificate features a high-density QR code embedding the cryptographic payload and verification URI.
 3. **Zero-Trust Independent Verification:** Any cooperative bank, dairy federation recruiter, or auditor can scan the QR code using any standard smartphone camera. The system fetches the immutable ledger record from `/verify/<id>`, instantly confirming validity, preventing forgery, and displaying full competency ratings.
 
@@ -360,7 +360,7 @@ The matching engine takes candidate Skill Passports and recruiter job postings, 
   - $A_{\text{attendance}}$: Historical attendance consistency percentage.
   - $D_{\text{geo}}$: Haversine geographical distance between candidate district and cooperative posting location.
   - $L_{\text{language}}$: Linguistic match between candidate spoken languages and society operational dialect.
-- **Model Training:** Trained using **XGBoost** with the `rank:ndcg` (Normalized Discounted Cumulative Gain) objective function over 22,000+ benchmarked candidate-job pairs:
+- **Model Training:** The prototype ranking workflow is bootstrapped using the Role Radar job-profile matching dataset containing 2,500 Indian jobs, 640 candidate profiles and 22,465 labelled candidate-job pairs, including synthetic profiles and automated labels. The XGBoost Ranker can be further validated and retrained using consented SahakarSetu interaction and outcome data during pilot deployment:
   $$\text{NDCG}@k = \frac{\text{DCG}@k}{\text{IDCG}@k}, \quad \text{where } \text{DCG}@k = \sum_{i=1}^k \frac{2^{rel_i} - 1}{\log_2(i + 1)}$$
 - **Outcome Feedback Loop:** As cooperative employers shortlist, interview, hire, or reject candidates, outcomes are fed back into the system. This data directly informs NCCT administrators which skills are in deficit, driving automated recommendations for next quarter's training programmes.
 
@@ -371,7 +371,7 @@ The matching engine takes candidate Skill Passports and recruiter job postings, 
 Trainees seeking career guidance or PACS operational advice interact with an AI Assistant powered by a **Retrieval-Augmented Generation (RAG)** pipeline:
 1. **Curated Document Corpus:** Ingests official documentation including the National Cooperation Policy 2025, Model Bye-laws for PACS, RBI guidelines for Rural Cooperative Banks, NCCT curriculum handbooks, and government subsidy schemes (NABARD, NCDC).
 2. **Vector Embeddings & Storage:** Text chunks (512 tokens with 10% overlap) are embedded using `text-embedding-3-small` / open multilingual embeddings and indexed into PostgreSQL using `pgvector` with HNSW (Hierarchical Navigable Small World) indexing.
-3. **Grounded Generation with Guardrails:** When a user queries: *"PACS secretary eligibility criteria kya hai?"*, the RAG pipeline retrieves the top-5 relevant sections and synthesizes an authoritative, hallucination-free response with explicit citations to official Ministry documents.
+3. **Grounded Generation with Guardrails:** When a user queries: *"PACS secretary eligibility criteria kya hai?"*, the RAG pipeline retrieves the top-5 relevant sections and synthesizes an authoritative, grounded responses with citations to retrieved official documents and application-level guardrails. with explicit citations to official Ministry documents.
 
 ---
 
@@ -433,11 +433,11 @@ The central PostgreSQL database schema enforces strict relational integrity acro
 
 ---
 
-## 15. Security, Privacy & DPDP Act 2023 Compliance
+## 15. Security, Privacy & DPDP-Aligned Architecture
 
 SahakarSetu is architected in rigorous alignment with the **Digital Personal Data Protection (DPDP) Act 2023** and national cybersecurity standards:
 1. **Explicit Consent Architecture:** Prior to biometric enrollment or Sahakar ID generation, trainees are presented with an itemized, multilingual consent form detailing purpose of data collection, processing scope, and retention duration.
-2. **Ephemeral Biometric Processing:** Facial imagery is processed in volatile memory on the edge device; raw frames are immediately expunged once 512-D vectors are generated. Biometric templates cannot be reverse-engineered into facial likenesses.
+2. **Ephemeral Biometric Processing:** Facial imagery is processed in volatile memory on the edge device; raw frames are immediately expunged once 512-D vectors are generated. Raw facial images are not retained after feature extraction; biometric templates are encrypted and access-controlled.
 3. **End-to-End Encryption:**
    - **In-Transit:** All client-edge and edge-cloud communications are encrypted over TLS 1.3 with SHA-256 cipher suites.
    - **At-Rest:** Database volumes, biometric vectors, and file stores are encrypted using AES-256-GCM.
@@ -473,14 +473,14 @@ The system undergoes rigorous end-to-end verification across simulated field con
 
 | Test ID | Test Scenario | Execution Methodology | Expected Result | Verification Status |
 |---|---|---|---|---|
-| **TST-01** | **Offline LMS Video Playback** | Physical internet connection severed; trainee smartphone connects to Edge Box Wi-Fi and streams 1080p lesson. | Media streams smoothly at > 25 Mbps without packet loss; video progress cached locally in SQLite. | **Verified** |
-| **TST-02** | **Offline Biometric Attendance** | Edge camera captures student face under zero-internet state; runs MiniFASNet + ArcFace match against local DB. | Face verified in < 450 ms; event stamped in local journal with timestamp and geofence tag. | **Verified** |
-| **TST-03** | **Network Outage Recovery Sync** | 50 attendance, registration, and quiz events generated offline; internet connection physically restored. | Sync daemon detects connectivity, flushes queue to cloud; all 50 events ingested with zero data loss. | **Verified** |
-| **TST-04** | **Sync Idempotency & De-duplication** | Same event batch intentionally transmitted twice to `/api/sync-events/` due to simulated network retry. | Server recognizes existing UUIDs; processes record once, returns 200 OK without duplicating database rows. | **Verified** |
-| **TST-05** | **Cryptographic QR Certificate Verification** | Mobile camera scans QR code on issued Digital Skill Passport via public browser link. | Instant verification confirms authentic NCCT digital signature, grade, and verified competency breakdown. | **Verified** |
-| **TST-06** | **Tampered Credential Detection** | Certificate hash or grade artificially altered in JSON payload. | Verification engine flags signature mismatch; displays warning: *"Invalid or Tampered Credential"*. | **Verified** |
-| **TST-07** | **Bhashini Multilingual Speech Translation** | Trainee speaks query in rural Marathi dialect; system transcribes, translates, and synthesizes Marathi audio response. | Audio transcribed with > 90% word accuracy; correct programmatic answer delivered in native dialect. | **Verified** |
-| **TST-08** | **AI Job Ranking Algorithm** | Candidate profile matched against cooperative vacancies using ESCO/O\*NET taxonomy and XGBoost ranker. | Candidate ranked top-3 for relevant PACS Accountant vacancy based on verified 94% accounting score. | **Verified** |
+| **TST-01** | **Offline LMS Video Playback** | Physical internet connection severed; trainee smartphone connects to Edge Box Wi-Fi and streams 1080p lesson. | Media streams smoothly at > 25 Mbps without packet loss; video progress cached locally in SQLite. | **Prototype Tested** |
+| **TST-02** | **Offline Biometric Attendance** | Edge camera captures student face under zero-internet state; runs MiniFASNet + ArcFace match against local DB. | Face verified in < 450 ms; event stamped in local journal with timestamp and geofence tag. | **Prototype Tested** |
+| **TST-03** | **Network Outage Recovery Sync** | 50 attendance, registration, and quiz events generated offline; internet connection physically restored. | Sync daemon detects connectivity, flushes queue to cloud; all 50 events ingested with zero data loss. | **Prototype Tested** |
+| **TST-04** | **Sync Idempotency & De-duplication** | Same event batch intentionally transmitted twice to `/api/sync-events/` due to simulated network retry. | Server recognizes existing UUIDs; processes record once, returns 200 OK without duplicating database rows. | **Prototype Tested** |
+| **TST-05** | **Cryptographic QR Certificate Verification** | Mobile camera scans QR code on issued Digital Skill Passport via public browser link. | Instant verification confirms authentic NCCT digital signature, grade, and verified competency breakdown. | **Prototype Tested** |
+| **TST-06** | **Tampered Credential Detection** | Certificate hash or grade artificially altered in JSON payload. | Verification engine flags signature mismatch; displays warning: *"Invalid or Tampered Credential"*. | **Prototype Tested** |
+| **TST-07** | **Bhashini Multilingual Speech Translation** | Trainee speaks query in rural Marathi dialect; system transcribes, translates, and synthesizes Marathi audio response. | Audio transcribed with > 90% word accuracy; correct programmatic answer delivered in native dialect. | **Prototype Tested** |
+| **TST-08** | **AI Job Ranking Algorithm** | Candidate profile matched against cooperative vacancies using ESCO/O\*NET taxonomy and XGBoost ranker. | Candidate ranked top-3 for relevant PACS Accountant vacancy based on verified 94% accounting score. | **Simulated Validation** |
 
 ---
 
@@ -524,9 +524,9 @@ The system undergoes rigorous end-to-end verification across simulated field con
 
 | Impact Dimension | Traditional System Challenge | SahakarSetu Transformation | Measurable Outcome Metric |
 |---|---|---|---|
-| **Social Inclusion** | Remote women SHGs and rural youth excluded due to language and travel barriers. | Localized, voice-first multilingual learning in native dialects through nearest village hubs. | **+40% increase** in female and tribal trainee participation across cooperative courses. |
-| **Administrative Efficiency** | Manual paper attendance, duplicate records, fragmented certificate registers. | Automated facial recognition, single Sahakar ID, centralized real-time cloud ERP. | **85% reduction** in institutional administrative turnaround and clerical man-hours. |
-| **Employment & Livelihood** | Zero formal link between rural training completion and cooperative hiring. | Verifiable Skill Passport directly matched to verified cooperative society job openings. | **3.5x improvement** in certified trainee placement and cooperative apprentice hiring. |
+| **Social Inclusion** | Remote women SHGs and rural youth excluded due to language and travel barriers. | Localized, voice-first multilingual learning in native dialects through nearest village hubs. | Target increase in female and tribal trainee participation across cooperative courses. |
+| **Administrative Efficiency** | Manual paper attendance, duplicate records, fragmented certificate registers. | Automated facial recognition, single Sahakar ID, centralized real-time cloud ERP. | Target reduction in institutional administrative turnaround and clerical man-hours. |
+| **Employment & Livelihood** | Zero formal link between rural training completion and cooperative hiring. | Verifiable Skill Passport directly matched to verified cooperative society job openings. | Target improvement in certified trainee placement and cooperative apprentice hiring. |
 | **Environmental Sustainability** | Thousands of reams of physical paper used annually for registers and certificates. | 100% paperless administration, digital audit registers, low-power (15W) edge computers. | **~12 tonnes CO₂ reduction** annually from eliminated paper and redundant admin travel. |
 
 ---
