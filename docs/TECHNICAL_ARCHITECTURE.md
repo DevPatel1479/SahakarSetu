@@ -534,3 +534,12 @@ SahakarSetu is built in direct alignment with statutory directives and national 
 4. **National Cooperative Database (NCD):** Centralized data taxonomy cataloging 8.44 lakh cooperatives and 30+ crore members for future API interoperability. *(https://cooperatives.gov.in)*
 5. **Digital Personal Data Protection (DPDP) Act 2023:** Legal framework governing consent management, data minimization, and biometric template encryption. *(Ministry of Electronics and Information Technology)*
 6. **National Career Service (NCS):** Ministry of Labour and Employment standards for job role classification and vocational skill mapping. *(https://ncs.gov.in)*
+
+---
+
+## 21. Prototype & Live Links
+
+- **Prototype Working Video:** https://youtu.be/SGfuTJ5SxBE
+- **Live Deployed Prototype:** https://sahakar-setu-sage.vercel.app/
+- **Backend API Endpoint:** https://sahakarsetu-mcdr.onrender.com/health/
+

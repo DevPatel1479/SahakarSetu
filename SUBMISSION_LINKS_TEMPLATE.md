@@ -11,5 +11,6 @@
 - **Technical Architecture Report:** `https://github.com/DevPatel1479/SahakarSetu/blob/main/docs/TECHNICAL_ARCHITECTURE.md`
 - **Technical Report (PDF):** `https://github.com/DevPatel1479/SahakarSetu/blob/main/report/SahakarSetu_Technical_Architecture_Report.pdf`
 - **Technical Report (DOCX):** `https://github.com/DevPatel1479/SahakarSetu/blob/main/report/SahakarSetu_Technical_Architecture_Report.docx`
-- **Live Deployed Prototype:** `https://sahakarsetu.vercel.app`
-- **Backend API Endpoint:** `https://sahakarsetu-mcdr.onrender.com`
+- **Live Deployed Prototype:** `https://sahakar-setu-sage.vercel.app/`
+- **Backend API Endpoint:** `https://sahakarsetu-mcdr.onrender.com/health/`
+- **Prototype Working Video:** `https://youtu.be/SGfuTJ5SxBE`

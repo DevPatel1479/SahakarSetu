@@ -13,6 +13,9 @@
 - **[Technical Architecture Report (Compiled PDF)](report/SahakarSetu_Technical_Architecture_Report.pdf)**
 - **[Prototype Implementation Plan](prototype/PROTOTYPE_PLAN.md)**
 - **[System Architecture Diagram (Mermaid)](architecture/system-architecture.mmd)**
+- **[Prototype Working Video](https://youtu.be/SGfuTJ5SxBE)**
+- **[Live Deployed Prototype](https://sahakar-setu-sage.vercel.app/)**
+- **[Backend API Endpoint](https://sahakarsetu-mcdr.onrender.com/health/)**
 
 ---
 
