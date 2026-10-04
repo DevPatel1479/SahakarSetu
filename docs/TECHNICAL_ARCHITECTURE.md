@@ -291,7 +291,7 @@ To ensure accessibility for rural cooperative members, PACS committee representa
 +-----------------------------------------------------------------------------------+
 ```
 
-- **Voice-First Navigation:** Semi-literate trainees can touch the microphone button and ask questions such as: *"माझं हजेरी आणि प्रमाणपत्र कधी मिळेल?"* (When will my attendance and certificate be generated?); the system processes the request in Marathi and provides both visual and voice responses.
+- **Voice-First Navigation:** Semi-literate trainees can touch the microphone button and ask questions such as: *"Majhi hajeri aani pramanpatra kadhi milel?"* (When will my attendance and certificate be generated?); the system processes the request in Marathi and provides both visual and voice responses.
 - **Multilingual Content Dubbing:** Course transcripts and study materials can be extended to additional Indian languages through BHASHINI services, democratizing access to technical PACS accounting rules and statutory audit requirements.
 
 ---
