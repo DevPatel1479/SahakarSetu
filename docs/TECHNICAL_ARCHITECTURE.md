@@ -192,7 +192,7 @@ The Edge Box is engineered with commercial off-the-shelf (COTS) industrial compo
 1. **Idempotency Guarantee:** Every action occurring offline is assigned a cryptographically unique identifier at origin:
    $$\text{Event ID} = \text{UUIDv4} \parallel \text{Timestamp} \parallel \text{DeviceID}$$
 2. **Ordered Event Processing:** Events are written to an append-only SQLite transaction table with statuses: `pending`, `syncing`, `synced`, `conflict`.
-3. **Dynamic Reconnection Worker:** A background daemon constantly monitors network health by pinging `https://sahakarsetu.gov.in/health/`. Upon ping acknowledgement, the worker dispatches batches of 50 events using HTTP POST to `/api/sync-events/`.
+3. **Dynamic Reconnection Worker:** A background daemon constantly monitors network health by pinging `https://sahakarsetu-mcdr.onrender.com/health/`. Upon ping acknowledgement, the worker dispatches batches of 50 events using HTTP POST to `/api/sync-events/`.
 4. **Collision Handling:** If an attendance record or enrollment action was processed independently on both cloud and edge, the central server applies the *Latest Valid Cryptographic Signature (LVCS)* rule, preserving data integrity without human intervention.
 
 ---
@@ -312,7 +312,7 @@ Upon successful completion of an accredited training programme (satisfying both 
 |   |  [x] Cold Storage & Agri-Inventory Management (Score: 78%)                |   |
 |   +---------------------------------------------------------------------------+   |
 |   |  Cryptographic Signature: HMAC-SHA256(Record + PrivateKey)                |   |
-|   |  Public Verification QR: https://sahakarsetu.gov.in/verify/CERT-1847      |   |
+|   |  Public Verification QR: https://sahakar-setu-sage.vercel.app/verify/CERT-1847      |   |
 |   +---------------------------------------------------------------------------+   |
 +-----------------------------------------------------------------------------------+
 ```
