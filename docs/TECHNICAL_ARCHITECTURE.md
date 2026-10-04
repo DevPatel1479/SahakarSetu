@@ -10,6 +10,12 @@
 
 ---
 
+## Project Deployment & Prototype Links
+
+- **Prototype Working Video:** https://youtu.be/SGfuTJ5SxBE
+- **Live Deployed Prototype:** https://sahakar-setu-sage.vercel.app/
+- **Backend API Endpoint:** https://sahakarsetu-mcdr.onrender.com/health/
+
 ## 1. Executive Summary & System Vision
 
 **SahakarSetu** is an enterprise-grade digital public infrastructure designed to modernize and unify the cooperative education, administration, and employment ecosystem across India. Commissioned under the mandate of the Ministry of Cooperation and the National Council for Cooperative Training (NCCT), the platform integrates institutional enterprise resource planning (ERP), learning management systems (LMS), computer-vision attendance, offline-first edge computing, verifiable cryptographic skill credentialing, and AI-driven employment linkage into a continuous, data-driven lifecycle.
@@ -537,9 +543,4 @@ SahakarSetu is built in direct alignment with statutory directives and national 
 
 ---
 
-## 21. Prototype & Live Links
-
-- **Prototype Working Video:** https://youtu.be/SGfuTJ5SxBE
-- **Live Deployed Prototype:** https://sahakar-setu-sage.vercel.app/
-- **Backend API Endpoint:** https://sahakarsetu-mcdr.onrender.com/health/
 
